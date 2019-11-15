@@ -1,0 +1,9 @@
+abc abc abc
+this is a abc
+this is a wo-rd but
+this is also a wooord
+
+sword has partial match
+so do 123word123, word123 and 123word
+abc!
+

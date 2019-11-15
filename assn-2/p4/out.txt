@@ -1,0 +1,154 @@
+R = 25, W = 25
+> Reader 4 enters
+    Reader 4 reads; buf: 
+> Reader 3 enters
+    Reader 3 reads; buf: 
+< Reader 3 exits
+> Reader 5 enters
+    Reader 5 reads; buf: 
+< Reader 5 exits
+> Reader 2 enters
+    Reader 2 reads; buf: 
+< Reader 2 exits
+> Reader 6 enters
+    Reader 6 reads; buf: 
+< Reader 6 exits
+> Reader 7 enters
+    Reader 7 reads; buf: 
+< Reader 7 exits
+> Reader 1 enters
+    Reader 1 reads; buf: 
+< Reader 1 exits
+< Reader 4 exits
+> Reader 8 enters
+    Reader 8 reads; buf: 
+< Reader 8 exits
+> Reader 9 enters
+    Reader 9 reads; buf: 
+< Reader 9 exits
+> Reader 11 enters
+    Reader 11 reads; buf: 
+< Reader 11 exits
+> Reader 12 enters
+    Reader 12 reads; buf: 
+< Reader 12 exits
+> Reader 10 enters
+    Reader 10 reads; buf: 
+< Reader 10 exits
+> Reader 13 enters
+    Reader 13 reads; buf: 
+< Reader 13 exits
+> Reader 14 enters
+    Reader 14 reads; buf: 
+< Reader 14 exits
+> Reader 0 enters
+    Reader 0 reads; buf: 
+< Reader 0 exits
+> Reader 15 enters
+    Reader 15 reads; buf: 
+< Reader 15 exits
+> Reader 16 enters
+    Reader 16 reads; buf: 
+< Reader 16 exits
+> Reader 17 enters
+    Reader 17 reads; buf: 
+< Reader 17 exits
+> Reader 18 enters
+    Reader 18 reads; buf: 
+< Reader 18 exits
+> Reader 19 enters
+    Reader 19 reads; buf: 
+< Reader 19 exits
+> Reader 20 enters
+    Reader 20 reads; buf: 
+< Reader 20 exits
+> Reader 21 enters
+    Reader 21 reads; buf: 
+< Reader 21 exits
+> Reader 22 enters
+    Reader 22 reads; buf: 
+< Reader 22 exits
+> Reader 23 enters
+    Reader 23 reads; buf: 
+< Reader 23 exits
+> Reader 24 enters
+    Reader 24 reads; buf: 
+< Reader 24 exits
+> Writer 0 enters
+    Writer 0 writes
+< Writer 0 exits
+> Writer 1 enters
+    Writer 1 writes
+< Writer 1 exits
+> Writer 2 enters
+    Writer 2 writes
+< Writer 2 exits
+> Writer 3 enters
+    Writer 3 writes
+< Writer 3 exits
+> Writer 4 enters
+    Writer 4 writes
+< Writer 4 exits
+> Writer 5 enters
+    Writer 5 writes
+< Writer 5 exits
+> Writer 6 enters
+    Writer 6 writes
+< Writer 6 exits
+> Writer 7 enters
+    Writer 7 writes
+< Writer 7 exits
+> Writer 8 enters
+    Writer 8 writes
+< Writer 8 exits
+> Writer 9 enters
+    Writer 9 writes
+< Writer 9 exits
+> Writer 10 enters
+    Writer 10 writes
+< Writer 10 exits
+> Writer 11 enters
+    Writer 11 writes
+< Writer 11 exits
+> Writer 12 enters
+    Writer 12 writes
+< Writer 12 exits
+> Writer 19 enters
+    Writer 19 writes
+< Writer 19 exits
+> Writer 18 enters
+    Writer 18 writes
+< Writer 18 exits
+> Writer 17 enters
+    Writer 17 writes
+< Writer 17 exits
+> Writer 20 enters
+    Writer 20 writes
+< Writer 20 exits
+> Writer 16 enters
+    Writer 16 writes
+< Writer 16 exits
+> Writer 21 enters
+    Writer 21 writes
+< Writer 21 exits
+> Writer 22 enters
+    Writer 22 writes
+< Writer 22 exits
+> Writer 23 enters
+    Writer 23 writes
+< Writer 23 exits
+> Writer 15 enters
+    Writer 15 writes
+< Writer 15 exits
+> Writer 24 enters
+    Writer 24 writes
+< Writer 24 exits
+> Writer 14 enters
+    Writer 14 writes
+< Writer 14 exits
+> Writer 13 enters
+    Writer 13 writes
+< Writer 13 exits
+Final buffer:  | W   0 | | W   1 | | W   2 | | W   3 | | W   4 | | W   5 | | W   6 | | W   7 | | W   8 | | W   9 | | W  10 | | W  11 | | W  12 | | W  19 | | W  18 | | W  17 | | W  20 | | W  16 | | W  21 | | W  22 | | W  23 | | W  15 | | W  24 | | W  14 | | W  13 |
+First 64 chars of buffer:
+ | W   0 | | W   1 | | W   2 | | W   3 | | W   4 | | W   5 | | W
