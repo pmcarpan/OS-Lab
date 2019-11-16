@@ -1,41 +1,60 @@
-// C program to implement one side of FIFO 
-// This side reads first, then reads 
+#include <stdbool.h>
 #include <stdio.h> 
 #include <string.h> 
 #include <fcntl.h> 
+#include <sys/select.h>
 #include <sys/stat.h> 
 #include <sys/types.h> 
 #include <unistd.h> 
 
-int main() 
-{ 
-	int fd1; 
+#include "text-styles.h"
 
-	// FIFO file path 
-	char * myfifo = "myfifo"; 
 
-	// Creating the named file(FIFO) 
-	// mkfifo(<pathname>,<permission>) 
-	mkfifo(myfifo, 0666); 
+#define S_NAME "sfifo"
+#define R_NAME "rfifo"
 
-	char str1[80], str2[80]; 
-	while (1) 
-	{ 
-		// First open in read only and read 
-		fd1 = open(myfifo,O_RDONLY); 
-		read(fd1, str1, 80); 
+#define MAX(a, b) ( ((a) >= (b)) ? (a) : (b) )
 
-		// Print the read string and close 
-		printf("User1: %s\n", str1); 
-		close(fd1); 
+int main(void) { 
+    printf(SCREEN_CLEARING_TEXT); fflush(stdout);
 
-		// Now open in write mode and write 
-		// string taken from user. 
-		fd1 = open(myfifo,O_WRONLY); 
-		fgets(str2, 80, stdin); 
-		write(fd1, str2, strlen(str2)+1); 
-		close(fd1); 
+	int s_fd, r_fd; 
+
+	mkfifo(S_NAME, 0666);
+    mkfifo(R_NAME, 0666); 
+
+
+    fd_set rd_set, wr_set;
+	while (true) {
+        s_fd = open(S_NAME, O_WRONLY);		
+        r_fd = open(R_NAME, O_RDONLY); 
+
+        FD_ZERO(&rd_set); FD_ZERO(&wr_set); 
+        FD_SET(r_fd, &rd_set);
+        FD_SET(STDIN_FILENO, &rd_set);
+
+        int max_fd = MAX(r_fd, STDIN_FILENO), 
+            num_activity = select(max_fd + 1, &rd_set, NULL, NULL, NULL);
+
+        if (num_activity == 0) continue;
+
+        if (FD_ISSET(r_fd, &rd_set)) {
+            char buf[128];
+            ssize_t num = read(r_fd, buf, 127);
+            buf[num - 1] = '\0';
+            printf("%s%s> [Sender]%s %s%s%s\n", ANSI_STYLE_BOLD, ANSI_COLOR_GREEN, ANSI_RESET, ANSI_STYLE_ITALIC, buf, ANSI_RESET);
+        }
+
+        if (FD_ISSET(STDIN_FILENO, &rd_set)) {
+            char buf[128];
+            ssize_t num = read(STDIN_FILENO, buf, 127);
+            write(s_fd, buf, num);
+        }
+
+        close(s_fd);
+        close(r_fd);
 	} 
-	return 0; 
+	
+    return 0; 
 } 
 

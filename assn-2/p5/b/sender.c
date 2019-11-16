@@ -1,48 +1,60 @@
-// C program to implement one side of FIFO 
-// This side writes first, then reads 
+#include <stdbool.h>
 #include <stdio.h> 
 #include <string.h> 
 #include <fcntl.h> 
+#include <sys/select.h>
 #include <sys/stat.h> 
 #include <sys/types.h> 
 #include <unistd.h> 
 
-int main() 
-{ 
-	int fd; 
+#include "text-styles.h"
 
-	// FIFO file path 
-	char * myfifo = "myfifo"; 
 
-	// Creating the named file(FIFO) 
-	// mkfifo(<pathname>, <permission>) 
-	mkfifo(myfifo, 0666); 
+#define S_NAME "sfifo"
+#define R_NAME "rfifo"
 
-	char arr1[80], arr2[80]; 
-	while (1) 
-	{ 
-		// Open FIFO for write only 
-		fd = open(myfifo, O_WRONLY); 
+#define MAX(a, b) ( ((a) >= (b)) ? (a) : (b) )
 
-		// Take an input arr2ing from user. 
-		// 80 is maximum length 
-		fgets(arr2, 80, stdin); 
+int main(void) { 
+    printf(SCREEN_CLEARING_TEXT); fflush(stdout);
 
-		// Write the input arr2ing on FIFO 
-		// and close it 
-		write(fd, arr2, strlen(arr2)+1); 
-		close(fd); 
+	int s_fd, r_fd; 
 
-		// Open FIFO for Read only 
-		fd = open(myfifo, O_RDONLY); 
+	mkfifo(S_NAME, 0666);
+    mkfifo(R_NAME, 0666); 
 
-		// Read from FIFO 
-		read(fd, arr1, sizeof(arr1)); 
 
-		// Print the read message 
-		printf("User2: %s\n", arr1); 
-		close(fd); 
+    fd_set rd_set, wr_set;
+	while (true) {
+        s_fd = open(S_NAME, O_RDONLY);		
+        r_fd = open(R_NAME, O_WRONLY); 
+
+        FD_ZERO(&rd_set); FD_ZERO(&wr_set); 
+        FD_SET(s_fd, &rd_set);
+        FD_SET(STDIN_FILENO, &rd_set);
+
+        int max_fd = MAX(s_fd, STDIN_FILENO), 
+            num_activity = select(max_fd + 1, &rd_set, NULL, NULL, NULL);
+
+        if (num_activity == 0) continue;
+
+        if (FD_ISSET(s_fd, &rd_set)) {
+            char buf[128];
+            ssize_t num = read(s_fd, buf, 127);
+            buf[num - 1] = '\0';
+            printf("%s%s> [Receiver]%s %s%s%s\n", ANSI_STYLE_BOLD, ANSI_COLOR_GREEN, ANSI_RESET, ANSI_STYLE_ITALIC, buf, ANSI_RESET);
+        }
+
+        if (FD_ISSET(STDIN_FILENO, &rd_set)) {
+            char buf[128];
+            ssize_t num = read(STDIN_FILENO, buf, 127);
+            write(r_fd, buf, num);
+        }
+
+        close(s_fd);
+        close(r_fd);
 	} 
-	return 0; 
+	
+    return 0; 
 } 
 
